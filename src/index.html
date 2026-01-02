@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asset Management App - Home</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <h1>Asset Management</h1>
+            </div>
+            <div class="nav-buttons">
+                <button class="btn btn-login" onclick="openLoginModal()">Login</button>
+                <button class="btn btn-register" onclick="openRegisterModal()">Register</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Welcome to Asset Management System</h1>
+            <p>Manage your investments and assets efficiently</p>
+            
+            <!-- Information Buttons -->
+            <div class="info-buttons">
+                <button class="btn btn-info" onclick="openCompanyInfoModal()">Company Info</button>
+                <button class="btn btn-info" onclick="openPlansModal()">Plans</button>
+                <button class="btn btn-info" onclick="openMissionModal()">Mission & Vision</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Company Info Modal -->
+    <div id="companyInfoModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('companyInfoModal')">&times;</span>
+            <h2>Company Information</h2>
+            <p>We are a leading asset management company dedicated to helping individuals and businesses manage their investments effectively.</p>
+            <p>With over 10 years of experience, we provide secure and transparent investment solutions.</p>
+            <p><strong>Contact Us:</strong> info@assetmanagement.com | Phone: +880-1234-567890</p>
+        </div>
+    </div>
+
+    <!-- Plans Modal -->
+    <div id="plansModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('plansModal')">&times;</span>
+            <h2>Investment Plans</h2>
+            <div class="plans-container">
+                <div class="plan">
+                    <h3>Basic Plan</h3>
+                    <p><strong>Investment Amount:</strong> $1,000 - $5,000</p>
+                    <p><strong>Return Rate:</strong> 8% per annum</p>
+                    <p><strong>Duration:</strong> 2 years</p>
+                </div>
+                <div class="plan">
+                    <h3>Standard Plan</h3>
+                    <p><strong>Investment Amount:</strong> $5,000 - $25,000</p>
+                    <p><strong>Return Rate:</strong> 10% per annum</p>
+                    <p><strong>Duration:</strong> 3 years</p>
+                </div>
+                <div class="plan">
+                    <h3>Premium Plan</h3>
+                    <p><strong>Investment Amount:</strong> $25,000+</p>
+                    <p><strong>Return Rate:</strong> 12% per annum</p>
+                    <p><strong>Duration:</strong> 5 years</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mission & Vision Modal -->
+    <div id="missionModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('missionModal')">&times;</span>
+            <h2>Mission & Vision</h2>
+            <h3>Our Mission</h3>
+            <p>To provide secure, transparent, and profitable investment opportunities that help our clients achieve their financial goals.</p>
+            <h3>Our Vision</h3>
+            <p>To become the most trusted and reliable asset management company in the region, known for integrity, professionalism, and exceptional returns.</p>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('loginModal')">&times;</span>
+            <h2>Login</h2>
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label for="loginEmail">Email Address:</label>
+                    <input type="email" id="loginEmail" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password:</label>
+                    <input type="password" id="loginPassword" name="password" required>
+                </div>
+                <button type="submit" class="btn btn-submit">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('registerModal')">&times;</span>
+            <h2>Create Account</h2>
+            <form id="registerForm" onsubmit="handleRegister(event)">
+                <div class="form-group">
+                    <label for="fullName">Full Name:</label>
+                    <input type="text" id="fullName" name="fullName" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerEmail">Email Address:</label>
+                    <input type="email" id="registerEmail" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerPassword">Password:</label>
+                    <input type="password" id="registerPassword" name="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number:</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="address">Address:</label>
+                    <input type="text" id="address" name="address" required>
+                </div>
+                <div class="form-group">
+                    <label for="nid">NID Number:</label>
+                    <input type="text" id="nid" name="nid" required>
+                </div>
+                <button type="submit" class="btn btn-submit">Register</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Credentials Display Modal -->
+    <div id="credentialsModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('credentialsModal')">&times;</span>
+            <h2>Registration Successful!</h2>
+            <p>Your account has been created. Here are your login credentials:</p>
+            <div class="credentials-display">
+                <p><strong>Email:</strong> <span id="credEmail"></span></p>
+                <p><strong>Password:</strong> <span id="credPassword"></span></p>
+            </div>
+            <button class="btn btn-submit" onclick="redirectToLogin()">Proceed to Login</button>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div id="notification" class="notification"></div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

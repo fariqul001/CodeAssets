@@ -1,0 +1,37 @@
+{
+  "investmentPlans": [
+    {
+      "id": 1,
+      "name": "Basic Plan",
+      "description": "A basic investment plan with low risk and moderate returns.",
+      "minInvestment": 1000,
+      "maxInvestment": 5000,
+      "returns": "5% annually"
+    },
+    {
+      "id": 2,
+      "name": "Growth Plan",
+      "description": "A growth-oriented plan with higher risk and potential returns.",
+      "minInvestment": 5000,
+      "maxInvestment": 20000,
+      "returns": "10% annually"
+    },
+    {
+      "id": 3,
+      "name": "Premium Plan",
+      "description": "A premium investment plan for high net worth individuals.",
+      "minInvestment": 20000,
+      "maxInvestment": 100000,
+      "returns": "15% annually"
+    }
+  ],
+  "companyInfo": {
+    "name": "Asset Management Co.",
+    "mission": "To provide the best investment solutions for our clients.",
+    "vision": "To be the leading asset management firm in the industry.",
+    "contact": {
+      "email": "info@assetmanagementco.com",
+      "phone": "+1234567890"
+    }
+  }
+}

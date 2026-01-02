@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard - Asset Management</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-logo">
+                <h2>Asset Management</h2>
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="#dashboard" class="menu-link active" onclick="showSection('dashboard')">Dashboard</a></li>
+                <li><a href="#membership" class="menu-link" onclick="showSection('membership')">Membership Registration</a></li>
+                <li><a href="#installment" class="menu-link" onclick="showSection('installment')">Submit Installment</a></li>
+                <li><a href="#profile" class="menu-link" onclick="showSection('profile')">My Profile</a></li>
+                <li><a href="#payments" class="menu-link" onclick="showSection('payments')">Payment History</a></li>
+            </ul>
+            <button class="btn btn-danger logout-btn" onclick="logoutUser()">Logout</button>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <div class="header">
+                <h1>User Dashboard</h1>
+                <div class="user-info">
+                    <div>
+                        <p><strong id="userFullName">User Name</strong></p>
+                        <p id="userEmail" style="font-size: 0.9rem; color: #666;">user@email.com</p>
+                    </div>
+                    <div class="user-avatar" id="userAvatar">U</div>
+                </div>
+            </div>
+
+            <!-- Dashboard Section -->
+            <section id="dashboard" class="dashboard-section">
+                <h2>Welcome Back!</h2>
+                
+                <!-- Stats Cards -->
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <h3>Total Investment</h3>
+                        <div class="value" id="totalInvestment">$0.00</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Installments Paid</h3>
+                        <div class="value" id="installmentsPaid">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Membership Status</h3>
+                        <div class="value" id="membershipStatus" style="font-size: 1.2rem; color: #f39c12;">Pending</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Next Due Date</h3>
+                        <div class="value" id="nextDueDate">N/A</div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="table-container" style="margin-top: 2rem;">
+                    <h3>Recent Transactions</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Amount</th>
+                                <th>Type</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recentTransactions">
+                            <tr>
+                                <td colspan="4" style="text-align: center; padding: 2rem;">No transactions yet</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Membership Registration Section -->
+            <section id="membership" class="dashboard-section" style="display: none;">
+                <h2>Complete Your Membership</h2>
+                <button class="btn btn-info" onclick="openMembershipModal()">Register for Membership</button>
+                
+                <div id="membershipStatus" style="margin-top: 2rem; padding: 1.5rem; background: white; border-radius: 8px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
+                    <p><strong>Membership Status:</strong> <span id="membershipStatusText">Pending</span></p>
+                    <p><strong>Applied Date:</strong> <span id="membershipAppliedDate">N/A</span></p>
+                </div>
+            </section>
+
+            <!-- Installment Submission Section -->
+            <section id="installment" class="dashboard-section" style="display: none;">
+                <h2>Submit Monthly Installment</h2>
+                <button class="btn btn-info" onclick="openInstallmentModal()">Submit Installment</button>
+                
+                <div class="table-container" style="margin-top: 2rem;">
+                    <h3>Installment History</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Month</th>
+                                <th>Amount</th>
+                                <th>Submission Date</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="installmentHistory">
+                            <tr>
+                                <td colspan="5" style="text-align: center; padding: 2rem;">No installments submitted yet</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Profile Section -->
+            <section id="profile" class="dashboard-section" style="display: none;">
+                <h2>My Profile</h2>
+                <div style="background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
+                    <div class="form-group">
+                        <label><strong>Full Name:</strong></label>
+                        <p id="profileFullName">-</p>
+                    </div>
+                    <div class="form-group">
+                        <label><strong>Email:</strong></label>
+                        <p id="profileEmail">-</p>
+                    </div>
+                    <div class="form-group">
+                        <label><strong>Phone:</strong></label>
+                        <p id="profilePhone">-</p>
+                    </div>
+                    <div class="form-group">
+                        <label><strong>Address:</strong></label>
+                        <p id="profileAddress">-</p>
+                    </div>
+                    <div class="form-group">
+                        <label><strong>NID:</strong></label>
+                        <p id="profileNID">-</p>
+                    </div>
+                    <div class="form-group">
+                        <label><strong>Registered Date:</strong></label>
+                        <p id="profileRegisteredDate">-</p>
+                    </div>
+                    <button class="btn btn-info" onclick="openEditProfileModal()">Edit Profile</button>
+                </div>
+            </section>
+
+            <!-- Payment History Section -->
+            <section id="payments" class="dashboard-section" style="display: none;">
+                <h2>Payment History</h2>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Amount</th>
+                                <th>Method</th>
+                                <th>Transaction ID</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="paymentHistory">
+                            <tr>
+                                <td colspan="5" style="text-align: center; padding: 2rem;">No payment history available</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Membership Modal -->
+    <div id="membershipModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('membershipModal')">&times;</span>
+            <h2>Complete Your Membership</h2>
+            <form id="membershipForm" onsubmit="handleMembershipRegistration(event)">
+                <div class="form-group">
+                    <label for="memFullName">Full Name:</label>
+                    <input type="text" id="memFullName" name="fullName" required>
+                </div>
+                <div class="form-group">
+                    <label for="memPresentAddress">Present Address:</label>
+                    <input type="text" id="memPresentAddress" name="presentAddress" required>
+                </div>
+                <div class="form-group">
+                    <label for="memPermanentAddress">Permanent Address:</label>
+                    <input type="text" id="memPermanentAddress" name="permanentAddress" required>
+                </div>
+                <div class="form-group">
+                    <label for="memNID">NID Number:</label>
+                    <input type="text" id="memNID" name="nid" required>
+                </div>
+                <div class="form-group">
+                    <label for="memPhone">Phone Number:</label>
+                    <input type="tel" id="memPhone" name="phone" required>
+                </div>
+                <button type="button" class="btn btn-success" onclick="generateAgreement()">Generate Agreement</button>
+                <button type="submit" class="btn btn-submit">Submit Membership</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Installment Modal -->
+    <div id="installmentModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('installmentModal')">&times;</span>
+            <h2>Installment Submission</h2>
+            <form id="installmentForm" onsubmit="handleInstallmentSubmission(event)">
+                <div class="form-group">
+                    <label>Payment Method:</label>
+                    <select id="paymentMethod" onchange="updatePaymentForm()" required>
+                        <option value="">Select Payment Method</option>
+                        <option value="slip">Upload Payment Slip</option>
+                        <option value="transaction">Enter Transaction ID</option>
+                        <option value="online">Online Payment</option>
+                    </select>
+                </div>
+
+                <!-- Slip Upload -->
+                <div id="slipUploadForm" style="display: none;">
+                    <div class="form-group">
+                        <label for="slipImage">Upload Slip Image:</label>
+                        <input type="file" id="slipImage" name="slipImage" accept="image/*">
+                    </div>
+                    <div id="slipPreview"></div>
+                </div>
+
+                <!-- Transaction ID -->
+                <div id="transactionForm" style="display: none;">
+                    <div class="form-group">
+                        <label for="transactionId">Transaction ID:</label>
+                        <input type="text" id="transactionId" name="transactionId">
+                    </div>
+                    <div class="form-group">
+                        <label for="transactionAmount">Amount:</label>
+                        <input type="number" id="transactionAmount" name="amount" step="0.01">
+                    </div>
+                </div>
+
+                <!-- Online Payment -->
+                <div id="onlinePaymentForm" style="display: none;">
+                    <div class="form-group">
+                        <label for="onlineAmount">Amount to Pay:</label>
+                        <input type="number" id="onlineAmount" name="onlineAmount" step="0.01" required>
+                    </div>
+                    <button type="button" class="btn btn-success" onclick="processOnlinePayment()">Process Payment</button>
+                </div>
+
+                <button type="submit" class="btn btn-submit">Submit Installment</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Edit Profile Modal -->
+    <div id="editProfileModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('editProfileModal')">&times;</span>
+            <h2>Edit Profile</h2>
+            <form id="editProfileForm" onsubmit="handleProfileUpdate(event)">
+                <div class="form-group">
+                    <label for="editFullName">Full Name:</label>
+                    <input type="text" id="editFullName" name="fullName" required>
+                </div>
+                <div class="form-group">
+                    <label for="editPhone">Phone:</label>
+                    <input type="tel" id="editPhone" name="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="editAddress">Address:</label>
+                    <input type="text" id="editAddress" name="address" required>
+                </div>
+                <button type="submit" class="btn btn-submit">Update Profile</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div id="notification" class="notification"></div>
+
+    <script src="js/utils.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/assets.js"></script>
+    <script src="js/user-dashboard.js"></script>
+</body>
+</html>

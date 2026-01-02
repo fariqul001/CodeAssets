@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Asset Management</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-logo">
+                <h2>Admin Panel</h2>
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="#dashboard" class="menu-link active" onclick="showAdminSection('dashboard')">Dashboard</a></li>
+                <li><a href="#users" class="menu-link" onclick="showAdminSection('users')">Manage Users</a></li>
+                <li><a href="#assets" class="menu-link" onclick="showAdminSection('assets')">Asset Management</a></li>
+                <li><a href="#payments" class="menu-link" onclick="showAdminSection('payments')">Pending Payments</a></li>
+                <li><a href="#membership" class="menu-link" onclick="showAdminSection('membership')">Membership Approval</a></li>
+                <li><a href="#reports" class="menu-link" onclick="showAdminSection('reports')">Reports</a></li>
+            </ul>
+            <button class="btn btn-danger logout-btn" onclick="logoutUser()">Logout</button>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <div class="header">
+                <h1>Admin Dashboard</h1>
+                <div class="user-info">
+                    <div>
+                        <p><strong id="adminFullName">Admin</strong></p>
+                        <p id="adminEmail" style="font-size: 0.9rem; color: #666;">admin@email.com</p>
+                    </div>
+                    <div class="user-avatar" id="adminAvatar">A</div>
+                </div>
+            </div>
+
+            <!-- Dashboard Section -->
+            <section id="dashboard" class="dashboard-section">
+                <h2>Admin Dashboard Overview</h2>
+                
+                <!-- Stats Cards -->
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <h3>Total Users</h3>
+                        <div class="value" id="totalUsers">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Total Assets</h3>
+                        <div class="value" id="totalAssets">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Total Investments</h3>
+                        <div class="value" id="totalInvestments">$0.00</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Pending Payments</h3>
+                        <div class="value" id="pendingPayments">0</div>
+                    </div>
+                </div>
+
+                <!-- Recent Activities -->
+                <div class="table-container" style="margin-top: 2rem;">
+                    <h3>Recent Transactions</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>User</th>
+                                <th>Amount</th>
+                                <th>Type</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recentTransactionsAdmin">
+                            <tr>
+                                <td colspan="5" style="text-align: center; padding: 2rem;">No transactions available</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Manage Users Section -->
+            <section id="users" class="dashboard-section" style="display: none;">
+                <h2>Manage Users</h2>
+                
+                <div class="table-container">
+                    <h3>Registered Users</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Registration Date</th>
+                                <th>Membership Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usersList">
+                            <tr>
+                                <td colspan="7" style="text-align: center; padding: 2rem;">No users found</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Asset Management Section -->
+            <section id="assets" class="dashboard-section" style="display: none;">
+                <h2>Asset Management</h2>
+                <button class="btn btn-info" onclick="openAddAssetModal()">Add New Asset</button>
+                
+                <div class="table-container" style="margin-top: 2rem;">
+                    <h3>Asset List</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Asset Name</th>
+                                <th>Asset Type</th>
+                                <th>Purchase Cost</th>
+                                <th>Current Market Value</th>
+                                <th>Location</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="assetsList">
+                            <tr>
+                                <td colspan="7" style="text-align: center; padding: 2rem;">No assets found</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Pending Payments Section -->
+            <section id="payments" class="dashboard-section" style="display: none;">
+                <h2>Pending Payment Verification</h2>
+                
+                <div class="table-container">
+                    <h3>Manual Payment Submissions</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>User</th>
+                                <th>Amount</th>
+                                <th>Type</th>
+                                <th>Submission Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="pendingPaymentsList">
+                            <tr>
+                                <td colspan="6" style="text-align: center; padding: 2rem;">No pending payments</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Membership Approval Section -->
+            <section id="membership" class="dashboard-section" style="display: none;">
+                <h2>Membership Approval</h2>
+                
+                <div class="table-container">
+                    <h3>Pending Membership Applications</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>User Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Application Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="membershipList">
+                            <tr>
+                                <td colspan="6" style="text-align: center; padding: 2rem;">No pending memberships</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Reports Section -->
+            <section id="reports" class="dashboard-section" style="display: none;">
+                <h2>Reports & Analytics</h2>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+                    <div style="background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
+                        <h3>Total Fund Collected</h3>
+                        <p style="font-size: 2rem; color: #667eea; font-weight: bold;" id="totalFund">$0.00</p>
+                    </div>
+                    <div style="background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
+                        <h3>Total Asset Value</h3>
+                        <p style="font-size: 2rem; color: #667eea; font-weight: bold;" id="totalAssetValue">$0.00</p>
+                    </div>
+                    <div style="background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
+                        <h3>Active Members</h3>
+                        <p style="font-size: 2rem; color: #667eea; font-weight: bold;" id="activeMembers">0</p>
+                    </div>
+                </div>
+
+                <button class="btn btn-info" onclick="generateReport()">Generate Full Report</button>
+            </section>
+        </main>
+    </div>
+
+    <!-- Add Asset Modal -->
+    <div id="addAssetModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('addAssetModal')">&times;</span>
+            <h2>Asset Registration Form</h2>
+            <form id="assetForm" onsubmit="handleAddAsset(event)">
+                <div class="form-group">
+                    <label for="assetName">Asset Name:</label>
+                    <input type="text" id="assetName" name="assetName" required>
+                </div>
+                <div class="form-group">
+                    <label for="assetType">Asset Type:</label>
+                    <select id="assetType" name="assetType" required>
+                        <option value="">Select Type</option>
+                        <option value="Land">Land</option>
+                        <option value="Building">Building</option>
+                        <option value="Vehicle">Vehicle</option>
+                        <option value="Machinery">Machinery</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="purchaseDate">Purchase Date:</label>
+                    <input type="date" id="purchaseDate" name="purchaseDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="purchaseCost">Purchase Cost:</label>
+                    <input type="number" id="purchaseCost" name="purchaseCost" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="currentValue">Current Market Value:</label>
+                    <input type="number" id="currentValue" name="currentValue" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="assetLocation">Asset Location:</label>
+                    <input type="text" id="assetLocation" name="assetLocation" required>
+                </div>
+                <div class="form-group">
+                    <label for="ownershipStatus">Ownership Status:</label>
+                    <select id="ownershipStatus" name="ownershipStatus" required>
+                        <option value="">Select Status</option>
+                        <option value="Owned">Owned</option>
+                        <option value="Leased">Leased</option>
+                        <option value="Rented">Rented</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="assetDescription">Asset Description:</label>
+                    <textarea id="assetDescription" name="assetDescription" rows="4"></textarea>
+                </div>
+                <button type="submit" class="btn btn-submit">Save Asset</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Edit Asset Modal -->
+    <div id="editAssetModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('editAssetModal')">&times;</span>
+            <h2>Edit Asset</h2>
+            <form id="editAssetForm" onsubmit="handleEditAsset(event)">
+                <input type="hidden" id="editAssetId" name="assetId">
+                <div class="form-group">
+                    <label for="editAssetName">Asset Name:</label>
+                    <input type="text" id="editAssetName" name="assetName" required>
+                </div>
+                <div class="form-group">
+                    <label for="editCurrentValue">Current Market Value:</label>
+                    <input type="number" id="editCurrentValue" name="currentValue" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="editAssetStatus">Asset Status:</label>
+                    <select id="editAssetStatus" name="assetStatus" required>
+                        <option value="Active">Active</option>
+                        <option value="Inactive">Inactive</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-submit">Update Asset</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Payment Verification Modal -->
+    <div id="paymentVerificationModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('paymentVerificationModal')">&times;</span>
+            <h2>Verify Payment</h2>
+            <div id="paymentDetails"></div>
+            <div style="margin-top: 2rem;">
+                <button class="btn btn-success" onclick="approvePayment()">Approve Payment</button>
+                <button class="btn btn-danger" onclick="rejectPayment()">Reject Payment</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification -->
+   <!-- Notification -->
+    <div id="notification" class="notification"></div>
+
+    <script src="js/utils.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/assets.js"></script>
+    <script src="js/admin-dashboard.js"></script>
+</body>
+</html>
